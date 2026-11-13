@@ -1,0 +1,5 @@
+<!DOCTYPE html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>دوره‌ها | Studio Fanos</title><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><script src="app.js" defer></script></head><body>
+<div class="top"><h1>🎓 دوره‌های آموزشی</h1><p>آموزش عکاسی و ادیت از پایه تا حرفه‌ای</p></div><section><div class="grid" id="crs"></div></section><section id="mine" style="display:none"><h2>ثبت‌نام‌های من</h2><div id="myo"></div></section>
+<script>window.addEventListener("DOMContentLoaded",()=>{init(['courses'],()=>{$('#crs').innerHTML=S.courses.map(p=>`<div class="card"><div class="b"><h3>🎓 ${esc(p.title)}</h3><p>${esc(p.desc)}<br>⏱ ${esc(p.dur)}</p><span class="price">${fa(p.price)} تومان</span> <button class="btn s" data-o="courses:${p.id}">ثبت‌نام و پرداخت</button></div></div>`).join('')||'<p>به‌زودی…</p>'});})</script></body></html>

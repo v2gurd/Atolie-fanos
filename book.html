@@ -1,0 +1,11 @@
+<!DOCTYPE html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>رزرو | Studio Fanos</title><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><script src="app.js" defer></script></head><body>
+<div class="top"><h1>📅 رزرو آنلاین</h1><p>لوکیشن و زمان دلخواهتان را انتخاب کنید</p></div><section><div class="grid" id="locs" style="margin-bottom:18px"></div>
+<form id="bf"><label>نام و نام خانوادگی<input name="name" required></label><label>شماره تماس<input name="phone" type="tel" required></label>
+<label>لوکیشن<select name="loc" id="locSel" required></select></label><label>نوع عکاسی<select name="kind"><option>پرتره</option><option>خانوادگی</option><option>عروس و داماد</option><option>کودک و نوزاد</option><option>محصول / تبلیغاتی</option><option>سایر</option></select></label>
+<label>تاریخ<input name="date" type="date" required></label><label>ساعت<input name="time" type="time" required></label>
+<label class="w">توضیحات<textarea name="note" rows="2"></textarea></label><div class="w"><button class="btn">ثبت رزرو</button></div></form></section>
+<script>window.addEventListener("DOMContentLoaded",()=>{init([],()=>{const L=(cfg().locs||'').split('\n').filter(x=>x.trim()).map(x=>x.split('|').map(y=>y.trim()));
+$('#locs').innerHTML=L.map(l=>`<div class="card"><div class="b"><h3>📍 ${esc(l[0])}</h3><p>${esc(l[1]||'')}</p></div></div>`).join('');$('#locSel').innerHTML=L.map(l=>`<option>${esc(l[0])}</option>`).join('');
+$('#bf').onsubmit=async e=>{e.preventDefault();if(needLogin())return;const d=Object.fromEntries(new FormData(e.target));const{error}=await fb('bookings').insert({...d,user_id:me.id});if(error)return toast('خطا در ثبت رزرو');e.target.reset();toast('✅ رزرو شما ثبت شد')}});})</script></body></html>
