@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><title>آتلیه فانوس | Atolie Fanos</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf7f0;--sf:#fff;--tx:#1d1a16;--mu:#7a6f60;--ac:#c98a1b;--ac2:#8a5a07;--bd:#eadfcb;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#14110d;--sf:#1e1a14;--tx:#f4ecdc;--mu:#a99b84;--ac:#e8a93a;--ac2:#f3c473;--bd:#352d21}}
+:root[data-theme=dark]{--bg:#14110d;--sf:#1e1a14;--tx:#f4ecdc;--mu:#a99b84;--ac:#e8a93a;--ac2:#f3c473;--bd:#352d21}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Vazirmatn,Tahoma,sans-serif;line-height:1.8}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--bd);display:flex;gap:4px;align-items:center;padding:8px 14px;overflow-x:auto;white-space:nowrap}
+nav b{color:var(--ac);font-size:18px;margin-left:auto;padding-left:10px}nav a,nav button{color:var(--tx);text-decoration:none;padding:4px 10px;border-radius:8px;font:inherit;font-size:14px;background:none;border:0;cursor:pointer}nav a:hover{background:var(--sf)}
+.hero{padding:64px 18px;text-align:center;background:radial-gradient(circle at 50% 0,rgba(201,138,27,.22),transparent 65%)}
+.hero h1{font-size:clamp(34px,8vw,60px);margin:0;font-weight:900}.hero h1 span{color:var(--ac)}.hero p{color:var(--mu);max-width:560px;margin:10px auto 22px}
+section{max-width:1040px;margin:auto;padding:36px 16px}h2{font-size:26px;margin:0 0 16px;border-right:4px solid var(--ac);padding-right:10px}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:10px;padding:9px 18px;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.o{background:none;color:var(--ac2);border:1px solid var(--ac)}.btn.r{background:#b3261e}.btn.s{padding:3px 11px;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:14px;overflow:hidden}.card .b{padding:12px}.card h3{margin:0 0 4px;font-size:17px}.card p{margin:0 0 8px;color:var(--mu);font-size:14px}
+.ph{aspect-ratio:4/3;background:linear-gradient(135deg,var(--ac),#5a3b05);background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;color:#fff8;font-size:40px}
+.price{color:var(--ac2);font-weight:900}
+form,.box{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:16px;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+label{display:grid;gap:3px;font-size:13px;color:var(--mu)}.w{grid-column:1/-1}
+input,select,textarea{font:inherit;padding:8px 10px;border-radius:9px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);width:100%}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}.tabs .btn{opacity:.6}.tabs .btn.on{opacity:1}
+.row{display:flex;gap:8px;align-items:center;justify-content:space-between;background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:8px 12px;margin-bottom:8px;flex-wrap:wrap}
+.row small{color:var(--mu);display:block}.tag{font-size:12px;padding:1px 8px;border-radius:99px;background:var(--bd)}
+#msg{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:14px;right:14px;max-width:420px;margin:auto;background:var(--ac2);color:#fff;padding:10px 14px;border-radius:10px;display:none;z-index:9;text-align:center}
+footer{text-align:center;color:var(--mu);padding:30px 14px;border-top:1px solid var(--bd);font-size:14px}
+</style></head><body>
+<nav><b>🏮 آتلیه فانوس</b><a href="#home" data-s>خانه</a><a href="#portfolio" data-s>نمونه‌کار</a><a href="#book" data-s>رزرو</a><a href="#presets" data-s>پریست</a><a href="#courses" data-s>دوره‌ها</a><button id="adminBtn" style="display:none"></button><button id="who"></button></nav>
+<div id="site">
+<div class="hero" id="home"><h1>آتلیه <span>فانوس</span></h1><div style="color:var(--mu);letter-spacing:3px">ATOLIE FANOS</div><p id="tag"></p><a class="btn" href="#book">رزرو وقت عکاسی</a> <a class="btn o" href="#courses">دوره‌های آموزشی</a></div>
+<section id="portfolio"><h2>نمونه‌کارها</h2><div class="grid" id="ports"></div></section>
+<section id="about"><h2>درباره ما</h2><p id="aboutT"></p><div class="grid" id="locs"></div></section>
+<section id="book"><h2>رزرو آنلاین</h2><form id="bf">
+<label>نام و نام خانوادگی<input name="name" required></label><label>شماره تماس<input name="phone" type="tel" required></label>
+<label>لوکیشن<select name="loc" id="locSel" required></select></label><label>نوع عکاسی<select name="kind"><option>پرتره</option><option>خانوادگی</option><option>عروس و داماد</option><option>کودک و نوزاد</option><option>محصول / تبلیغاتی</option><option>سایر</option></select></label>
+<label>تاریخ<input name="date" type="date" required></label><label>ساعت<input name="time" type="time" required></label>
+<label class="w">توضیحات<textarea name="note" rows="2"></textarea></label><div class="w"><button class="btn">ثبت رزرو</button> <span id="bstat" style="color:var(--mu);font-size:13px"></span></div></form></section>
+<section id="presets"><h2>فروشگاه پریست</h2><div class="grid" id="prs"></div></section>
+<section id="courses"><h2>دوره‌های آموزش عکاسی و ادیت</h2><div class="grid" id="crs"></div></section>
+<section id="mine" style="display:none"><h2>سفارش‌های من</h2><div id="myo"></div></section><footer id="foot"></footer></div>
+<div id="adminV" style="display:none"><section><h2>پنل مدیریت</h2><div class="tabs" id="tabs"></div><div id="adm"></div></section></div>
+<div id="mod" style="display:none;position:fixed;inset:0;background:#000a;z-index:20;align-items:center;justify-content:center;padding:14px"><form id="of" style="max-width:440px;width:100%;max-height:90vh;overflow:auto"><div class="w" id="oinfo"></div><label>نام و نام خانوادگی<input name="name" required></label><label>شماره تماس<input name="phone" type="tel" required></label><label>کد پیگیری واریز<input name="ref" required></label><label>عکس رسید<input name="rcpt" type="file" accept="image/*"></label><div class="w"><button class="btn">ثبت پرداخت</button> <button type="button" class="btn o" id="oclose">بستن</button></div></form></div>
+<div id="lm" style="display:none;position:fixed;inset:0;background:#000a;z-index:20;align-items:center;justify-content:center;padding:14px"><form id="lf" style="max-width:380px;width:100%"><div class="w"><b>ورود / ثبت‌نام</b></div><label class="w">ایمیل<input name="email" type="email" required dir="ltr"></label><label class="w">رمز عبور<input name="pass" type="password" minlength="6" required dir="ltr"></label><div class="w"><button class="btn" data-m="in">ورود</button> <button class="btn o" data-m="up">ساخت حساب</button> <button type="button" class="btn o" id="lclose">بستن</button></div></form></div>
+<div id="msg"></div>
+<script>
+const SB_URL='YOUR_SUPABASE_URL',SB_KEY='YOUR_SUPABASE_ANON_KEY';
+const sb=supabase.createClient(SB_URL,SB_KEY);
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),fa=n=>Number(n||0).toLocaleString('fa-IR');
+let me=null,admin=false,tab='cfg',editId=null,cur=null;
+const S={mine:[],cfg:{},portfolio:[],presets:[],courses:[],bookings:[],orders:[]};
+const DEF={cfg:{tag:'هر قاب، یک خاطره‌ی ماندگار؛ آتلیه عکاسی، فروش پریست و آموزش عکاسی و ادیت.',about:'آتلیه فانوس با سال‌ها تجربه در عکاسی پرتره، خانوادگی و تبلیغاتی، همراه شماست تا لحظه‌هایتان را درخشان ثبت کنیم.',phone:'09120000000',card:'6037-0000-0000-0000',cname:'نام صاحب کارت',insta:'@atolie.fanos',addr:'آدرس آتلیه',locs:'استودیو مرکزی | داخل آتلیه، نورپردازی حرفه‌ای\nباغ و فضای سبز | عکاسی در طبیعت\nلوکیشن دلخواه شما | هماهنگی با آتلیه'},
+portfolio:[['پرتره نور طبیعی','پرتره'],['قاب خانوادگی','خانوادگی'],['عروس و داماد','عروس'],['عکس محصول','تبلیغاتی']].map(a=>({title:a[0],cat:a[1],img:''})),
+presets:[{title:'پریست گرم و سینمایی',price:290000,desc:'مناسب پرتره و غروب',img:''},{title:'پریست رنگ‌های طبیعی',price:250000,desc:'پوست طبیعی و سبز متعادل',img:''}],
+courses:[{title:'مبانی عکاسی',price:2900000,dur:'۸ جلسه',desc:'دوربین، نور، ترکیب‌بندی'},{title:'ادیت حرفه‌ای لایت‌روم و فتوشاپ',price:3500000,dur:'۱۰ جلسه',desc:'از رنگ‌تصحیح تا روتوش'}]};
+const F={portfolio:[['title','عنوان'],['cat','دسته'],['img','تصویر','img']],presets:[['title','عنوان'],['price','قیمت (تومان)','n'],['desc','توضیح'],['img','تصویر','img']],courses:[['title','عنوان'],['price','شهریه (تومان)','n'],['dur','مدت'],['desc','توضیح']]};
+const T={cfg:'تنظیمات سایت',portfolio:'نمونه‌کار',presets:'پریست‌ها',courses:'دوره‌ها',bookings:'رزروها',orders:'سفارش‌ها و ثبت‌نام‌ها'};
+const toDb=o=>{o={...o};if('desc' in o){o.descr=o.desc;delete o.desc}if('price' in o)o.price=+o.price||0;return o};
+function toast(t){const m=$('#msg');m.textContent=t;m.style.display='block';setTimeout(()=>m.style.display='none',2600)}
+const cfg=()=>Object.assign({},DEF.cfg,S.cfg);
+const im=i=>i?`style="background-image:url('${esc(i)}')"`:'';
+async function load(c){if(c==='cfg'){const{data}=await sb.from('site_config').select('data').eq('id',1).maybeSingle();S.cfg=data?.data||{}}else{const{data}=await sb.from(c).select('*').order('created_at',{ascending:false});S[c]=(data||[]).map(x=>({...x,desc:x.descr,at:Date.parse(x.created_at)}))}
+site();if(admin&&location.hash==='#admin'&&tab===c)adminR()}
+async function loadMine(){if(!me){S.mine=[];return mineR()}const{data}=await sb.from('orders').select('*').eq('user_id',me.id).order('created_at',{ascending:false});S.mine=data||[];mineR()}
+function site(){const c=cfg();$('#tag').textContent=c.tag;$('#aboutT').textContent=c.about;
+const L=(c.locs||'').split('\n').filter(x=>x.trim()).map(x=>x.split('|').map(y=>y.trim()));
+$('#locs').innerHTML=L.map(l=>`<div class="card"><div class="b"><h3>📍 ${esc(l[0])}</h3><p>${esc(l[1]||'')}</p></div></div>`).join('');
+$('#locSel').innerHTML=L.map(l=>`<option>${esc(l[0])}</option>`).join('');
+$('#foot').innerHTML=`📞 ${esc(c.phone)} · ${esc(c.insta)}<br>${esc(c.addr)}<br>© آتلیه فانوس`;
+$('#ports').innerHTML=S.portfolio.map(p=>`<div class="card"><div class="ph" ${im(p.img)}>${p.img?'':'📷'}</div><div class="b"><h3>${esc(p.title)}</h3><p>${esc(p.cat)}</p></div></div>`).join('')||'<p>به‌زودی…</p>';
+$('#prs').innerHTML=S.presets.map(p=>`<div class="card"><div class="ph" ${im(p.img)}>${p.img?'':'🎨'}</div><div class="b"><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p><span class="price">${fa(p.price)} تومان</span> <button class="btn s" data-o="presets:${p.id}">خرید و پرداخت</button></div></div>`).join('')||'<p>به‌زودی…</p>';
+$('#crs').innerHTML=S.courses.map(p=>`<div class="card"><div class="b"><h3>🎓 ${esc(p.title)}</h3><p>${esc(p.desc)}<br>⏱ ${esc(p.dur)}</p><span class="price">${fa(p.price)} تومان</span> <button class="btn s" data-o="courses:${p.id}">ثبت‌نام و پرداخت</button></div></div>`).join('')||'<p>به‌زودی…</p>'}
+function mineR(){const o=S.mine;$('#mine').style.display=o.length?'':'none';$('#myo').innerHTML=o.map(x=>`<div class="row"><div>${esc(x.item)} <span class="tag">${esc(x.status==='تایید شد'?'✅ پرداخت تایید شد':x.status)}</span></div>${x.file&&x.status==='تایید شد'?`<a class="btn s" href="${esc(x.file)}" target="_blank" rel="noopener">⬇ دانلود</a>`:''}</div>`).join('')}
+async function upload(f,dir){const p=dir+'/'+Date.now()+'-'+Math.random().toString(36).slice(2,6)+'.'+(f.name.split('.').pop()||'jpg');const{error}=await sb.storage.from('media').upload(p,f);if(error)throw error;return sb.storage.from('media').getPublicUrl(p).data.publicUrl}
+const needLogin=()=>{if(me)return false;$('#lm').style.display='flex';toast('ابتدا وارد شوید');return true};
+/* auth */
+$('#who').onclick=async()=>{if(me){await sb.auth.signOut()}else $('#lm').style.display='flex'};
+$('#lclose').onclick=()=>$('#lm').style.display='none';
+$('#lf').onsubmit=async e=>{e.preventDefault();const m=e.submitter?.dataset.m||'in',d=Object.fromEntries(new FormData(e.target));
+const r=m==='up'?await sb.auth.signUp({email:d.email,password:d.pass}):await sb.auth.signInWithPassword({email:d.email,password:d.pass});
+if(r.error)return toast('خطا: '+r.error.message);$('#lm').style.display='none';toast(m==='up'&&!r.data.session?'ایمیل تایید برای شما ارسال شد':'✅ وارد شدید')};
+async function setMe(u){me=u||null;admin=false;if(me){const{data}=await sb.from('profiles').select('is_admin').eq('id',me.id).maybeSingle();admin=!!data?.is_admin;if(admin){load('bookings');load('orders')}}
+$('#who').textContent=me?'👤 خروج':'ورود';loadMine();view()}
+/* booking & orders */
+$('#bf').onsubmit=async e=>{e.preventDefault();if(needLogin())return;const d=Object.fromEntries(new FormData(e.target));
+const{error}=await sb.from('bookings').insert({...d,user_id:me.id});if(error)return toast('خطا در ثبت رزرو');e.target.reset();toast('✅ رزرو شما ثبت شد')};
+document.addEventListener('click',e=>{const o=e.target.closest('[data-o]');if(o){const[k,i]=o.dataset.o.split(':');order(k,i)}});
+function order(k,i){if(needLogin())return;const it=S[k].find(x=>x.id==i);if(!it)return;const c=cfg();cur={k,it};
+$('#oinfo').innerHTML=`<b>${esc(it.title)}</b><br>مبلغ قابل پرداخت: <span class="price">${fa(it.price)} تومان</span><br>کارت‌به‌کارت به: <b dir="ltr">${esc(c.card)}</b><br>به نام: ${esc(c.cname)}<br><small style="color:var(--mu)">پس از واریز، کد پیگیری و عکس رسید را ثبت کنید. بعد از تایید مدیر، ${k==='presets'?'لینک دانلود در «سفارش‌های من» ظاهر می‌شود':'ثبت‌نام شما نهایی می‌شود'}.</small>`;$('#mod').style.display='flex'}
+$('#oclose').onclick=()=>$('#mod').style.display='none';
+$('#of').onsubmit=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target)),f=e.target.rcpt.files[0];
+try{const rcpt=f?await upload(f,'receipts/'+me.id):'';const{error}=await sb.from('orders').insert({user_id:me.id,kind:cur.k==='presets'?'پریست':'دوره',item:cur.it.title,amount:cur.it.price,name:d.name,phone:d.phone,ref:d.ref,rcpt,status:'در انتظار تایید'});if(error)throw error;
+$('#mod').style.display='none';e.target.reset();loadMine();toast('✅ ثبت شد؛ پس از تایید پرداخت فعال می‌شود')}catch(x){toast('خطا در ثبت')}};
+/* admin */
+function fld(f,v){const[n,l,t]=f;if(t==='img')return`<label class="w">${l}<input name="${n}" value="${esc(v)}" placeholder="لینک تصویر یا آپلود ↓"><input type="file" accept="image/*" data-up="${n}"></label>`;return`<label ${n==='desc'?'class="w"':''}>${l}<input name="${n}" ${t==='n'?'type="number"':''} value="${esc(v)}"></label>`}
+function adminR(){$('#tabs').innerHTML=Object.keys(T).map(k=>`<button class="btn ${k===tab?'on':''}" data-t="${k}">${T[k]}</button>`).join('');const a=$('#adm');
+if(tab==='cfg'){const c=cfg();a.innerHTML=`<form id="cf"><label class="w">شعار<input name="tag" value="${esc(c.tag)}"></label><label class="w">درباره آتلیه<textarea name="about" rows="3">${esc(c.about)}</textarea></label><label>تلفن<input name="phone" value="${esc(c.phone)}"></label><label>اینستاگرام<input name="insta" value="${esc(c.insta)}"></label><label>شماره کارت<input name="card" value="${esc(c.card)}"></label><label>نام صاحب کارت<input name="cname" value="${esc(c.cname)}"></label><label class="w">آدرس<input name="addr" value="${esc(c.addr)}"></label><label class="w">لوکیشن‌ها (هر خط: نام | توضیح)<textarea name="locs" rows="4">${esc(c.locs)}</textarea></label><div class="w"><button class="btn">ذخیره</button> <button type="button" class="btn o" id="seed">بارگذاری نمونه اولیه</button></div></form>`;return}
+if(F[tab]){const cur=S[tab].find(x=>x.id==editId)||{};a.innerHTML=`<form id="ef">${F[tab].map(f=>fld(f,cur[f[0]]??'')).join('')}<div class="w"><button class="btn">${editId?'ذخیره تغییرات':'افزودن'}</button> ${editId?'<button type="button" class="btn o" id="cancel">انصراف</button>':''}</div></form><div style="margin-top:14px">${S[tab].map(x=>`<div class="row"><div>${esc(x.title)}<small>${esc(x.cat||x.desc||'')}</small></div><div><button class="btn s o" data-e="${x.id}">ویرایش</button> <button class="btn s r" data-d="${tab}:${x.id}">حذف</button></div></div>`).join('')||'<p>موردی نیست.</p>'}</div>`;return}
+a.innerHTML=S[tab].map(x=>`<div class="row"><div><b>${esc(x.name)}</b> · ${esc(x.phone)} <span class="tag">${esc(x.status)}</span><small>${tab==='bookings'?`${esc(x.kind)} | ${esc(x.loc)} | ${esc(x.date)} ${esc(x.time)} ${esc(x.note||'')}`:`${esc(x.kind)}: ${esc(x.item)} | ${fa(x.amount)} تومان | پیگیری: ${esc(x.ref)} ${x.rcpt?`<a href="${esc(x.rcpt)}" target="_blank" rel="noopener">رسید</a>`:''}`}</small></div><div><button class="btn s" data-s="${tab}:${x.id}:تایید شد">تایید</button> <button class="btn s o" data-s="${tab}:${x.id}:لغو شد">لغو</button> <button class="btn s r" data-d="${tab}:${x.id}">حذف</button></div></div>`).join('')||'<p>موردی نیست.</p>'}
+$('#adm').addEventListener('submit',async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target));try{let r;
+if(e.target.id==='cf'){r=await sb.from('site_config').upsert({id:1,data:d})}else{const o=toDb(d);r=editId?await sb.from(tab).update(o).eq('id',editId):await sb.from(tab).insert(o);editId=null}
+if(r.error)throw r.error;toast('✅ ذخیره شد');load(e.target.id==='cf'?'cfg':tab)}catch(x){toast('خطا: '+(x.message||''))}});
+$('#adm').addEventListener('change',async e=>{const n=e.target.dataset.up;if(!n)return;try{toast('در حال آپلود…');e.target.form[n].value=await upload(e.target.files[0],tab);toast('آپلود شد')}catch(x){toast('خطا در آپلود')}});
+$('#adm').addEventListener('click',async e=>{const t=e.target;try{
+if(t.dataset.e){editId=t.dataset.e;adminR()}else if(t.id==='cancel'){editId=null;adminR()}
+else if(t.dataset.d){const[k,i]=t.dataset.d.split(':');if(confirm('حذف شود؟')){await sb.from(k).delete().eq('id',i);load(k)}}
+else if(t.dataset.s){const[k,i,s]=t.dataset.s.split(':'),o={status:s},it=S[k].find(x=>x.id==i);if(k==='orders'&&it.kind==='پریست'&&s==='تایید شد'){const f=prompt('لینک دانلود فایل پریست برای مشتری:',it.file||'');if(f)o.file=f}await sb.from(k).update(o).eq('id',i);load(k)}
+else if(t.id==='seed'&&confirm('نمونه‌ها اضافه شوند؟')){await sb.from('site_config').upsert({id:1,data:DEF.cfg});for(const k of['portfolio','presets','courses'])await sb.from(k).insert(DEF[k].map(toDb));['cfg','portfolio','presets','courses'].forEach(load);toast('انجام شد')}}catch(x){toast('خطا')}});
+$('#tabs').onclick=e=>{if(e.target.dataset.t){tab=e.target.dataset.t;editId=null;adminR()}};
+function view(){const h=location.hash==='#admin';$('#site').style.display=h?'none':'';$('#adminV').style.display=h?'':'none';if(h&&!admin){$('#tabs').innerHTML='';$('#adm').innerHTML='<div class="box"><p class="w">این صفحه مخصوص مدیر آتلیه است. با اکانت مدیر وارد شوید.</p><a class="btn w" href="#home">بازگشت به سایت</a></div>'}if(h&&admin)adminR()}
+addEventListener('hashchange',view);
+['cfg','portfolio','presets','courses'].forEach(load);site();
+sb.auth.onAuthStateChange((_,s)=>setMe(s?.user));
+sb.auth.getSession().then(({data})=>setMe(data.session?.user));
+</script></body></html>
