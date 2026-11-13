@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>پنل مدیریت | Studio Fanos</title><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><meta name="robots" content="noindex"></head><body>
+<title>پنل مدیریت | Studio Fanos</title><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><link rel="stylesheet" href="style.css">
+<script src="lib.js" defer></script><meta name="robots" content="noindex"></head><body>
 <nav><b>🏮 پنل مدیریت Studio Fanos</b><a href="index.html">مشاهده سایت</a><button id="out" style="display:none">خروج</button></nav>
 <section><div id="lbox" style="display:none"><form id="lf" style="max-width:380px;margin:auto"><div class="w"><b id="lt">ورود مدیر</b></div><label class="w">ایمیل<input name="email" type="email" required dir="ltr"></label><label class="w">رمز عبور<input name="pass" type="password" minlength="6" required dir="ltr"></label><div class="w"><button class="btn" data-m="in">ورود</button> <button class="btn o" data-m="up" id="upb">ساخت حساب مدیر</button></div></form></div>
 <div id="nobox" style="display:none" class="box"><p class="w" id="nomsg"></p><div class="w"><button class="btn" id="claim" style="display:none">ثبت من به‌عنوان مدیر استودیو</button></div></div>
@@ -8,7 +8,7 @@
 <div id="msg"></div>
 <script>
 const SB_URL='https://yhjwttinwgsekgbmdijw.supabase.co',SB_KEY='sb_publishable_KbGaMcx2t7kndWIx27giag_LYsKjtVc';
-const sb=supabase.createClient(SB_URL,SB_KEY),fb=n=>sb.from('fanos_'+n);
+let sb,fb;
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),fa=n=>Number(n||0).toLocaleString('fa-IR');
 let me=null,tab='cfg',editId=null;
 const S={mine:[],cfg:{},portfolio:[],presets:[],courses:[],bookings:[],orders:[]};
@@ -53,5 +53,5 @@ if(!me){const{data:h}=await sb.rpc('fanos_has_admin');$('#upb').style.display=h?
 const{data:p}=await fb('profiles').select('is_admin').eq('id',me.id).maybeSingle();
 if(p?.is_admin){show('panel');['cfg','portfolio','presets','courses','bookings','orders'].forEach(load);adminR();return}
 const{data:h}=await sb.rpc('fanos_has_admin');show('nobox');$('#claim').style.display=h?'none':'';$('#nomsg').textContent=h?'این حساب دسترسی مدیریت ندارد.':'هنوز مدیری ثبت نشده است. اگر شما صاحب استودیو هستید، دکمه زیر را بزنید.'}
-sb.auth.onAuthStateChange(()=>gate());gate();
+window.addEventListener('load',async()=>{if(!(await loadLib()))return toast('اتصال به سرور برقرار نشد؛ اینترنت یا فیلترشکن را بررسی کنید');sb=supabase.createClient(SB_URL,SB_KEY);fb=n=>sb.from('fanos_'+n);sb.auth.onAuthStateChange(()=>gate());gate()});
 </script></body></html>

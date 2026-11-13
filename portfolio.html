@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>نمونه‌کارها | Studio Fanos</title><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><script src="app.js" defer></script></head><body>
+<title>نمونه‌کارها | Studio Fanos</title><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><link rel="stylesheet" href="style.css">
+<script src="lib.js" defer></script><script src="app.js" defer></script></head><body>
 <div class="top"><h1>📷 نمونه‌کارها</h1><p>قاب‌هایی که ثبت کرده‌ایم</p></div><section><div class="grid" id="ports"></div></section>
 <script>window.addEventListener("DOMContentLoaded",()=>{init(['portfolio'],()=>{$('#ports').innerHTML=S.portfolio.map(p=>`<div class="card"><div class="ph" ${im(p.img)}>${p.img?'':'📷'}</div><div class="b"><h3>${esc(p.title)}</h3><p>${esc(p.cat)}</p></div></div>`).join('')||'<p>به‌زودی…</p>'});})</script></body></html>

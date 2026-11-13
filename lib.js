@@ -1,0 +1,2 @@
+function loadLib(){const u=['https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js','https://unpkg.com/@supabase/supabase-js@2.45.4/dist/umd/supabase.js','https://cdnjs.cloudflare.com/ajax/libs/supabase-js/2.45.4/supabase.min.js'];
+return new Promise(res=>{let i=0;const next=()=>{if(window.supabase||i>=u.length)return res(!!window.supabase);let d=0;const go=()=>{if(d)return;d=1;next()};const s=document.createElement('script');s.src=u[i++];s.onload=go;s.onerror=go;document.head.appendChild(s);setTimeout(go,6000)};next()})}
